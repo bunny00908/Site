@@ -2,9 +2,9 @@ import re
 import requests
 from aiogram import Bot, Dispatcher, types, executor
 
-API_TOKEN = '7390503914:AAFNopMlX6iNHO2HTWNYpLLzE_DfF8h4uQ4'   # <-- Change this to your bot token
+API_TOKEN = '7390503914:AAFNopMlX6iNHO2HTWNYpLLzE_DfF8h4uQ4'   # <--- PUT YOUR BOT TOKEN HERE
 
-bot = Bot(token=API_TOKEN)
+bot = Bot(token=API_TOKEN, parse_mode="HTML")
 dp = Dispatcher(bot)
 
 def clean_url(url):
@@ -94,7 +94,7 @@ def format_output(product, variant, url, shipping_msg):
         f"⊙ Product ID: {variant['id']}\n"
         f"⊙ Shippable: {'✅' if variant['requires_shipping'] else '❌'}\n"
         f"⊙ Taxable: {'✅' if variant['taxable'] else '❌'}\n"
-        f"⊙ Product URL: {url}\n"
+        f"⊙ Product URL: <code>{url}</code>\n"
         f"{shipping_msg}\n"
     )
 
