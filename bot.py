@@ -116,21 +116,21 @@ def fetch_cheapest_from_any_link(link):
 
 # ---- Telegram Handler ----
 
-@dp.message_handler()
+@dp.message_handler(lambda message: re.match(r'https?://[^\s]+', message.text))
 async def handle_shopify_links(message: types.Message):
     links = re.findall(r'(https?://[^\s]+)', message.text)
     if not links:
         await message.reply("Send any Shopify store/product/collection URL(s)!")
         return
     results = []
-    for link in links[:50]:   # Max 50 per message!
+    for link in links[:50]:  # Max 50 per message!
         try:
             result = fetch_cheapest_from_any_link(link)
         except Exception as e:
             result = f"{link}\nError: {str(e)}"
         results.append(result)
     reply_text = "\n\n".join(results)
-    await message.reply(reply_text[:4096])   # Telegram limit
+    await message.reply(reply_text[:4096])  # Telegram limit
 
 if __name__ == "__main__":
     print("Bot started!")
